@@ -4,8 +4,20 @@ class Square:
     def __init__(self, size=0, position=(0, 0)):
         """ Initializes private instance
             positive integer `size` and `position` """
-        self.__size = size
-        self.__position = position
+        if type(size) is not int:
+            raise TypeError("size must be an integer")
+        elif size < 0:
+            raise ValueError("size must be >= 0")
+        else:
+            self.__size = size
+
+        if not isinstance(position, tuple) \
+           or len(position) != 2 \
+           or any(map(lambda x: not isinstance(x, int)), position) \
+           or any(map(lambda x: x < 0, position)):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        else:
+            self.__position = position
 
     @property
     def size(self):
@@ -30,7 +42,7 @@ class Square:
     @position.setter
     def position(self, value):
         """ setter for `__position` """
-        if type(value) is not tuple \
+        if not isinstance(value, tuple) \
            or len(value) != 2 \
            or any(map(lambda x: not isinstance(x, int)), value) \
            or any(map(lambda x: x < 0, value)):
@@ -51,3 +63,6 @@ class Square:
             print(row * self.__size, end="")
         else:
             print()
+
+my_square = Square(3, "Position")
+my_square.my_print()
