@@ -13,7 +13,7 @@ class Square:
 
         if not isinstance(position, tuple) \
            or len(position) != 2 \
-           or any(map(lambda x: not isinstance(x, int)), position) \
+           or any(map(lambda x: not isinstance(x, int), position)) \
            or any(map(lambda x: x < 0, position)):
             raise TypeError("position must be a tuple of 2 positive integers")
         else:
@@ -44,7 +44,7 @@ class Square:
         """ setter for `__position` """
         if not isinstance(value, tuple) \
            or len(value) != 2 \
-           or any(map(lambda x: not isinstance(x, int)), value) \
+           or any(map(lambda x: not isinstance(x, int), value)) \
            or any(map(lambda x: x < 0, value)):
             raise TypeError("position must be a tuple of 2 positive integers")
         else:
