@@ -57,12 +57,9 @@ class Square:
     def my_print(self):
         """ Prints the square with `#`s.
             Should probably be a `__repr__`. """
-        row = (' '  * self.__position[0]) + ('#' * self.__size) + '\n'
+        row = (' ' * self.__position[0]) + ('#' * self.__size) + '\n'
         if self.__size > 0:
             print('\n' * self.__position[1], end="")
             print(row * self.__size, end="")
         else:
             print()
-
-my_square = Square(3, "Position")
-my_square.my_print()
