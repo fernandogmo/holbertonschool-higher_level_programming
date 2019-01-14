@@ -5,12 +5,25 @@ Using ``text_indentation``
 --------------------------
 
 	>>> text_indentation = __import__("5-text_indentation").text_indentation
-	
+
 	>>> 0 < len(__import__("5-text_indentation").__doc__)
 	True
 
 	>>> 0 < len(__import__("5-text_indentation").text_indentation.__doc__)
 	True
+
+	>>> text_indentation("")
+
+	>>> text_indentation("A")
+	A
+
+	>>> text_indentation("?")
+	?
+	<BLANKLINE>
+
+	>>> text_indentation(" : ")
+	:
+	<BLANKLINE>
 
 	>>> text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
 	... Quonam modo? Utrum igitur tibi litteram videor an totas paginas commovere? \
