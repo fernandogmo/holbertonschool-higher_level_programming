@@ -1,0 +1,72 @@
+The ``101-lazy_matrix_mul`` module
+===============i==================
+
+Using ``lazy_matrix_mul``
+-------------------------
+
+	>>> lazy_matrix_mul = __import__("101-lazy_matrix_mul").lazy_matrix_mul
+
+	>>> 0 < len(__import__("101-lazy_matrix_mul").__doc__)
+	True
+
+	>>> 0 < len(__import__("101-lazy_matrix_mul").lazy_matrix_mul.__doc__)
+	True
+
+	>>> lazy_matrix_mul(0, 0)  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	ValueError: ...
+
+	>>> lazy_matrix_mul([], 0)  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	ValueError: ...
+
+	>>> lazy_matrix_mul([], [])
+	0.0
+
+	>>> lazy_matrix_mul([[]], [])  # doctest: +ELLIPSIS
+	array(...)
+
+	>>> lazy_matrix_mul([[]], [[]])  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	ValueError: ...
+
+	>>> lazy_matrix_mul([[0]], [[]])  # doctest: +ELLIPSIS
+	array(...)
+
+	>>> lazy_matrix_mul([['A']], [['A']])   # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	TypeError: ...
+
+	>>> lazy_matrix_mul([[0]], [['A']])   # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	TypeError: ...
+
+	>>> lazy_matrix_mul([[0], [0, 0]], [[0, 0], [0]])  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	TypeError: ...
+
+	>>> lazy_matrix_mul([[0], [0]], [[0, 0], [0]])  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	ValueError: ...
+
+	>>> lazy_matrix_mul([[0], [0]], [[0], [0]])  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	ValueError: ...
+
+	>>> lazy_matrix_mul([[0]],)  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	TypeError: lazy_matrix_mul() missing 1 required positional argument: 'm_b'
+
+	>>> lazy_matrix_mul()  # doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	...
+	TypeError: lazy_matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
