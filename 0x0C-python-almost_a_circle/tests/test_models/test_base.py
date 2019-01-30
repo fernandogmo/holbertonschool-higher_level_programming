@@ -4,7 +4,7 @@ Test for `Base` class
 """
 import unittest
 import pep8
-import inspect
+from inspect import getdoc, getmembers, isfunction
 from models import base
 from models.base import Base
 
@@ -15,12 +15,10 @@ class TestBaseClass(unittest.TestCase):
     """
     @classmethod
     def setUp(cls):
-        """ Need class funcs to test for docstrings """
-        cls.funcs = inspect.getmembers(Base, inspect.isfunction)
         """ Create a few objects """
-        cls.b1 = Base()
-        cls.b2 = Base(12)
-        cls.b3 = Base()
+        cls.b0 = Base()
+        cls.b1 = Base(12)
+        cls.b2 = Base()
 
     def tearDown(self):
         """ Reset object count after each test. """
@@ -32,29 +30,28 @@ class TestBaseClass(unittest.TestCase):
         Test pep8 conformance.
         https://pep8.readthedocs.io/en/release-1.7.x/advanced.html
         """
-        pep8style = pep8.StyleGuide(quiet=True)
-        result1 = pep8style.check_files(['models/base.py'])
-        result2 = pep8style.check_files(['tests/test_models/test_base.py'])
-        self.assertEqual(result1.total_errors, 0,
-                         "Found code style errors in base.py.")
-        self.assertEqual(result2.total_errors, 0,
-                         "Found code style errors in test_base.py.")
+        file_msgs = [('models/base.py',
+                      'Found code style errors in base.py.'),
+                     ('tests/test_models/test_base.py',
+                      'Found code style errors in test_base.py.')]
+        for f, e in file_msgs:
+            self.assertEqual(pep8.Checker(f).check_all(), 0, e)
 
     def test_docstring(self):
         """
         Test for docstrings at module, class, and function level
         """
-        self.assertTrue(len(base.__doc__) > 0)
-        self.assertTrue(len(Base.__doc__) > 0)
-        for func in self.funcs:
-            self.assertTrue(len(func[1].__doc__) > 0)
+        self.assertTrue(len(getdoc(base)) > 0)
+        self.assertTrue(len(getdoc(Base)) > 0)
+        for _, fn in getmembers(Base, isfunction):
+            self.assertTrue(len(getdoc(fn)) > 0)
 
     def test_none_id(self):
-        self.assertEqual(self.b1.id, 1)
+        self.assertEqual(self.b0.id, 1)
 
     def test_valid_id(self):
-        self.assertEqual(self.b2.id, 12)
-        self.assertEqual(self.b3.id, 2)
+        self.assertEqual(self.b1.id, 12)
+        self.assertEqual(self.b2.id, 2)
 
     def test_none_to_json_string(self):
         self.assertEqual(Base.to_json_string(None), '[]')
