@@ -17,6 +17,15 @@ class TestBaseClass(unittest.TestCase):
     def setUp(cls):
         """ Need class funcs to test for docstrings """
         cls.funcs = inspect.getmembers(Base, inspect.isfunction)
+        """ Create a few objects """
+        cls.b1 = Base()
+        cls.b2 = Base(12)
+        cls.b3 = Base()
+
+    def tearDown(self):
+        """ Reset object count after each test. """
+        Base._Base__nb_objects = 0
+        self.assertEqual(Base._Base__nb_objects, 0)
 
     def test_pep8(self):
         """
@@ -41,16 +50,11 @@ class TestBaseClass(unittest.TestCase):
             self.assertTrue(len(func[1].__doc__) > 0)
 
     def test_none_id(self):
-        b1 = Base()
-        self.assertEqual(b1.id, 1)
-        b2 = Base()
-        self.assertEqual(b2.id, 2)
+        self.assertEqual(self.b1.id, 1)
 
     def test_valid_id(self):
-        b3 = Base(12)
-        self.assertEqual(b3.id, 12)
-        b4 = Base()
-        self.assertEqual(b4.id, 3)
+        self.assertEqual(self.b2.id, 12)
+        self.assertEqual(self.b3.id, 2)
 
     def test_none_to_json_string(self):
         self.assertEqual(Base.to_json_string(None), '[]')
