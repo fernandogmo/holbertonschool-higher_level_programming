@@ -1,3 +1,3 @@
 #!/bin/bash
 # Use `curl` to display all HTTP methods the server will accept
-curl -sI "$1" | awk '/^Allow/{$1="\b"; print $0}' | cat
+curl -sI "$1" | awk '/^Allow/{$1=""; print $0}' | sed 's/^ //'
