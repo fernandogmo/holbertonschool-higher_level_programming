@@ -1,3 +1,7 @@
 #!/usr/bin/node
-require('request').get('http://swapi.co/api/people/18',
-  (err, resp) => console.log(err || JSON.parse(resp.body).films.length));
+require('request').get(process.argv[2],
+  (err, resp) => console.log(err || countFilms('18', JSON.parse(resp.body).results)));
+
+function countFilms (id, films) {
+  return films.filter((film) => film.characters.find((character) => character.includes(id))).length;
+}
